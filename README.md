@@ -1,4 +1,4 @@
-##  Requisitos Previos
+##  Requisitos Previos para descargar
 
 - Visual Studio 2022 (con complementos de **ASP.NET y desarrollo web**)  
 - .NET 8 SDK  
