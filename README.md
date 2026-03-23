@@ -24,3 +24,10 @@
 
 4. **Ejecutar proyecto**
    En la cinta de opciones superior de Visual Studio seleccionar la opcion de Reproducir o Ejecutar https 
+
+
+
+## Autor
+Proyecto desarrollado por  
+Juan Sebastian Briñez Capera
+Desarrollador de Software
