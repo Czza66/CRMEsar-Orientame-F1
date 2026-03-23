@@ -1,0 +1,34 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Estados.EstadosAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Editar estado";
+}
+<br />
+<h3 class="text-center">Editar un estado</h3>
+
+<form method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="EstadoId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del estado" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label"></label>
+            <input asp-for="Descripcion" type="text" class="form-control" placeholder="Descripción para el estado" />
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

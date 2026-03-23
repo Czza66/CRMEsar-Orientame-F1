@@ -1,0 +1,52 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Paises.PaisesAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Editar pais";
+}
+<br />
+<h3 class="text-center">Editar un pais</h3>
+
+<form method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="paisId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del pais" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Codigo" class="form-label"></label>
+            <input asp-for="Codigo" type="text" class="form-control" placeholder="Codigo del pais" />
+            <span asp-validation-for="Codigo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="codigoInternacional" class="form-label"></label>
+            <input asp-for="codigoInternacional" type="text" class="form-control" placeholder="codigoInternacional del pais" />
+            <span asp-validation-for="codigoInternacional" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PermiteILVE" class="form-label">¿El pais permite IVE?</label>
+            <select asp-for="PermiteILVE" class="form-select">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="PermiteILVE" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EstadoId" class="form-label">Estado del modulo</label>
+            @Html.DropDownListFor(c => c.EstadoId, Model.ListaEstados, new { @class = "form-control" })
+            <span asp-validation-for="EstadoId" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

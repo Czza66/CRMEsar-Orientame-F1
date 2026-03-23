@@ -1,0 +1,137 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Usuarios.UsuariosAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Crear usuario";
+}
+
+<br />
+<h3 class="text-center">Crea una usuaria</h3>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <h6 class="text-secondary mt-3 mb-2">
+            <i class="bi bi-person-fill"></i> Datos personales
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Primer nombre</label>
+                <input asp-for="Nombre1" type="text" class="form-control" placeholder="Primer Nombre" />
+                <span asp-validation-for="Nombre1" class="text-danger"></span>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Segundo nombre</label>
+                <input asp-for="Nombre2" type="text" class="form-control" placeholder="Segundo Nombre" />
+                <span asp-validation-for="Nombre2" class="text-danger"></span>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Primer apellido</label>
+                <input asp-for="Apellido1" type="text" class="form-control" placeholder="Primer apellido" />
+                <span asp-validation-for="Apellido1" class="text-danger"></span>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Segundo apellido</label>
+                <input asp-for="Apellido2" type="text" class="form-control" placeholder="Segundo apellido" />
+                <span asp-validation-for="Apellido2" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- ================= Datos de sesion ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="fas fa-user-cog"></i> Datos de sesión
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Correo Electrónico</label>
+                <input asp-for="correo" type="text" class="form-control" placeholder="Correo@correo.com" />
+                <span asp-validation-for="correo" class="text-danger"></span>
+            </div>
+
+        </div>
+
+
+        <!-- ================= IDENTIFICACIÓN ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="bi bi-card-text"></i> Identificación
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label asp-for="TipoDocumentoID" class="form-label">Tipo de documento</label>
+                @Html.DropDownListFor(c => c.TipoDocumentoID, Model.ListaTiposDocumentos, new { @class = "form-control" })
+                <span asp-validation-for="TipoDocumentoID" class="text-danger"></span>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Número de documento</label>
+                <input asp-for="NumeroDocumento" type="text" class="form-control" placeholder="Número de documento" />
+                <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- ================= INFORMACIÓN LABORAL ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="bi bi-briefcase-fill"></i> Información organizacional
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label asp-for="CargoID" class="form-label">Cargo</label>
+                @Html.DropDownListFor(c => c.CargoID, Model.ListaCargos, new { @class = "form-control" })
+                <span asp-validation-for="CargoID" class="text-danger"></span>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Tipo de usuaria</label>
+                <select asp-for="TipoUsuario"
+                        class="form-control form-select-sm">
+                    <option value="CUENTA">CUENTA</option>
+                    <option value="PRESTADOR">PRESTADOR</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ================= UBICACIÓN ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="bi bi-geo-alt-fill"></i> Ubicación
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label asp-for="PaisId" class="form-label">País</label>
+                @Html.DropDownListFor(c => c.PaisId, Model.ListaPaises, new { @class = "form-control" })
+                <span asp-validation-for="PaisId" class="text-danger"></span>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Ciudad</label>
+                <input asp-for="Ciudad" type="text" class="form-control" placeholder="Ciudad de residencia" />
+                <span asp-validation-for="Ciudad" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- ================= Parametros de sistema ================= -->
+
+
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

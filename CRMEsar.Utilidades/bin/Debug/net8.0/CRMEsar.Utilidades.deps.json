@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "CRMEsar.Utilidades/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection.Abstractions": "9.0.3"
+        },
+        "runtime": {
+          "CRMEsar.Utilidades.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.DataProtection.Abstractions/9.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.325.11220"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CRMEsar.Utilidades/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.DataProtection.Abstractions/9.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cz8/avBwCEd92X7xkK7gGJkOJJfTTb6uJzZltyCr329GLekD4aiLLwRGYhh/3Z0KNor9IujBlFJOW3e6cUMeHg==",
+      "path": "microsoft.aspnetcore.dataprotection.abstractions/9.0.3",
+      "hashPath": "microsoft.aspnetcore.dataprotection.abstractions.9.0.3.nupkg.sha512"
+    }
+  }
+}

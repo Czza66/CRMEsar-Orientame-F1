@@ -1,0 +1,224 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Usuarios.UsuariosAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+<br />
+<h3 class="text-center">Editar usuario</h3>
+
+<form method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="UsuarioId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <h6 class="text-secondary mt-3 mb-2">
+            <i class="bi bi-person-fill"></i> Datos personales
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Primer nombre</label>
+                <input asp-for="Nombre1" class="form-control" />
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Segundo nombre</label>
+                <input asp-for="Nombre2" class="form-control" />
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Primer apellido</label>
+                <input asp-for="Apellido1" class="form-control" />
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Segundo apellido</label>
+                <input asp-for="Apellido2" class="form-control" />
+            </div>
+        </div>
+
+        <!-- ================= Datos de sesion ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="fas fa-user-cog"></i> Datos de sesión
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Correo electronico</label>
+                @if (Model.correo == "No registra")
+                {
+                    <!-- Editable -->
+                    <input asp-for="correo" class="form-control" />
+                }
+                else
+                {
+                    <!-- No editable -->
+                    <input asp-for="correo"
+                           class="form-control"
+                           disabled />
+
+                    <!-- Mantiene el valor para el POST -->
+                    <input type="hidden" asp-for="correo" />
+                }
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label asp-for="EstadoId" class="form-label">Estado del usuario</label>
+                @Html.DropDownListFor(c => c.EstadoId, Model.ListaEstados, new { @class = "form-control" })
+                <span asp-validation-for="EstadoId" class="text-danger"></span>
+            </div>
+
+        </div>
+
+
+        <!-- ================= IDENTIFICACIÓN ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="bi bi-card-text"></i> Identificación
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label asp-for="TipoDocumentoID" class="form-label">Tipo de documento</label>
+                @Html.DropDownListFor(c => c.TipoDocumentoID, Model.ListaTiposDocumentos, new { @class = "form-control" })
+                <span asp-validation-for="TipoDocumentoID" class="text-danger"></span>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Numero de documento</label>
+                <input asp-for="NumeroDocumento" class="form-control" />
+            </div>
+        </div>
+
+        <!-- ================= INFORMACIÓN LABORAL ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="bi bi-briefcase-fill"></i> Información organizacional
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label asp-for="CargoID" class="form-label">Cargo</label>
+                @Html.DropDownListFor(c => c.CargoID, Model.ListaCargos, new { @class = "form-control" })
+                <span asp-validation-for="CargoID" class="text-danger"></span>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Tipo de usuaria</label>
+                <select asp-for="TipoUsuario"
+                        class="form-control form-select-sm">
+                    <option value="CUENTA">CUENTA</option>
+                    <option value="PRESTADOR">PRESTADOR</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ================= UBICACIÓN ================= -->
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="bi bi-geo-alt-fill"></i> Ubicación
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label asp-for="PaisId" class="form-label">Pais</label>
+                @Html.DropDownListFor(c => c.PaisId, Model.ListaPaises, new { @class = "form-control" })
+                <span asp-validation-for="PaisId" class="text-danger"></span>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Ciudad</label>
+                <input asp-for="Ciudad" class="form-control" />
+            </div>
+        </div>
+
+        <!-- ================= Parametros de sistema ================= -->
+
+        <h6 class="text-secondary mt-4 mb-2">
+            <i class="fas fa-tools"></i> Parametros del sistema
+        </h6>
+        <hr class="mt-1 mb-3" />
+
+        <div class="row g-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">¿Confirmó el correo electrónico?</label>
+                <div class="form-control-plaintext">
+                    @(Model.EmailConfirmed ? "SI" : "NO")
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">¿Configuro el 2MFA Con microsoft?</label>
+                <div class="d-flex justify-content-between align-items-center">            
+                    <div class="form-control-plaintext mb-0">
+                        @(Model.TwoFactorEnabled ? "SI" : "NO")
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.TwoFactorEnabled)
+            {
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12 mt-4">
+                    <button type="button"
+                            class="btn btn-sm btn-outline-warning"
+                            data-toggle="modal"
+                            data-target="#modalReset2FA">
+                        <i class="fas fa-redo"></i> Reiniciar 2MFA
+                    </button>
+            </div>
+            }
+            
+        </div>
+
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+@if (Model.TwoFactorEnabled)
+{
+    <div class="modal fade" id="modalReset2FA" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning">
+                        <i class="fas fa-exclamation-triangle"></i> Reiniciar 2MFA
+                    </h5>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        Al reiniciar el <strong>doble factor de autenticación (2MFA)</strong>,
+                        el usuario deberá configurarlo nuevamente en Microsoft Authenticator.
+                    </p>
+                    <p class="text-danger mb-0">
+                        ¿Deseas continuar?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <form asp-action="ResetTwoFactor"
+                          asp-controller="Usuarios"
+                          asp-area="Panel"
+                          method="post">
+
+                        <input type="hidden" name="id" value="@Model.UsuarioId" />
+                        @Html.AntiForgeryToken()
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-redo"></i> Reiniciar 2MFA
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

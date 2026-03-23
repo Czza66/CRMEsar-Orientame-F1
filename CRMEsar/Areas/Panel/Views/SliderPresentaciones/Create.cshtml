@@ -1,0 +1,143 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.SliderPresentaciones.SliderPresentacionesCrearEditarVM
+@{
+	ViewData["Title"] = "Crear Slider";
+}
+<br />
+<h3 class="text-center">Crear un Slider de presentación</h3>
+
+<form id="formIntegracion" method="POST" asp-action="Create" enctype="multipart/form-data">
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="form-group row mb-4">
+            <!-- Columna izquierda: selector -->
+            <div class="col-md-6">
+                <label for="subidaArchivoSlider" class="form-label">Seleccionar imagen</label>
+                <input type="file"
+                       name="ArchivoSlider"
+                       id="subidaArchivoSlider"
+                       class="form-control"
+                       accept="image/*"
+                       onchange="mostrarVistaPrevia(this)" />
+                <small class="text-muted">Formatos permitidos: JPG, PNG, GIF</small>
+            </div>
+
+            <!-- Columna derecha: vista previa -->
+            <div class="col-md-6 text-center">
+                <label class="form-label">Vista previa</label>
+                <div class="border rounded p-2"
+                     style="height: 250px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    <img id="vistaPrevia"
+                         src="~/img/sliders/SliderPlaceholder.png"
+                         alt="Vista previa"
+                         style="max-height: 180px; max-width: 100%; object-fit: contain; border-radius: 8px;" />
+                    <div id="infoImagen" class="mt-2 text-secondary small"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Titulo" class="form-label"></label>
+            <input asp-for="Titulo" type="text" class="form-control" placeholder="Titulo del Slider" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label"></label>
+            <textarea asp-for="Descripcion" type="text" class="form-control" id="Descripcion"></textarea>
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TextoAlternativo" class="form-label"></label>
+            <input asp-for="TextoAlternativo" type="text" class="form-control" placeholder="Texto alternativo" />
+            <span asp-validation-for="TextoAlternativo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UrlDestino" class="form-label"></label>
+            <input asp-for="UrlDestino" type="text" class="form-control" placeholder="Url de destino" />
+            <span asp-validation-for="UrlDestino" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Orden" class="form-label"></label>
+            <input asp-for="Orden" type="number" class="form-control" placeholder="Numero de orden" />
+            <span asp-validation-for="Orden" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <!-- TinyMCE con tu clave personal -->
+    <script src="https://cdn.tiny.cloud/1/y69idvrvyyn87zpwi4uqq2ib8tl23hhy80bvlrz0w5h89nfg/tinymce/8/tinymce.min.js"
+            referrerpolicy="origin" crossorigin="anonymous"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#Descripcion',       // Solo afecta al campo de descripción
+            height: 300,
+            menubar: false,
+            plugins: [
+                // Plugins básicos
+                'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+                'link', 'lists', 'media', 'table', 'visualblocks', 'wordcount'
+            ],
+            toolbar:
+                'undo redo | blocks | bold italic underline forecolor backcolor | ' +
+                'alignleft aligncenter alignright | bullist numlist | code removeformat',
+            branding: false, // Quita el logo TinyMCE del pie
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+    </script>
+
+    <script>
+        function mostrarVistaPrevia(input) {
+            const vistaPrevia = document.getElementById('vistaPrevia');
+            const infoImagen = document.getElementById('infoImagen');
+
+            if (input.files && input.files[0]) {
+                const archivo = input.files[0];
+
+                // Validar tipo de archivo
+                if (!archivo.type.startsWith("image/")) {
+                    alert("Por favor selecciona un archivo de imagen válido.");
+                    input.value = "";
+                    vistaPrevia.src = "~/img/sliders/SliderPlaceholder.png";
+                    infoImagen.innerHTML = "";
+                    return;
+                }
+
+                const lector = new FileReader();
+                lector.onload = function (e) {
+                    vistaPrevia.src = e.target.result;
+
+                    // Crear un objeto Image temporal para obtener dimensiones
+                    const imgTemp = new Image();
+                    imgTemp.onload = function () {
+                        const ancho = imgTemp.width;
+                        const alto = imgTemp.height;
+
+                        infoImagen.innerHTML = `
+                            <div class="mt-2">
+                                <span class="text-info">
+                                    📏 Tamaño actual: <strong>${ancho} × ${alto}px</strong>
+                                </span><br />
+                                <span class="text-warning">
+                                    💡 Recomendación: usa imágenes de <strong>1200 × 600 px</strong> para mejor visualización.
+                                </span>
+                            </div>`;
+                    };
+                    imgTemp.src = e.target.result;
+                };
+
+                lector.readAsDataURL(archivo);
+            } else {
+                vistaPrevia.src = "/img/placeholder.png";
+                infoImagen.innerHTML = "";
+            }
+        }
+    </script>
+
+
+}

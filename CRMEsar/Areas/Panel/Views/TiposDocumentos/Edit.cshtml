@@ -1,0 +1,43 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.TiposDocumentos.TipoDocumentCrearEditarVM
+
+@{
+    ViewData["Title"] = "Editar tipo de documento";
+}
+<br />
+<h3 class="text-center">Editar tipo de documento</h3>
+
+<form method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="TiposDocumentosId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="TipoDocumento" class="form-label"></label>
+            <input asp-for="TipoDocumento" type="text" class="form-control" placeholder="Nombre del tipo documento " />
+            <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Abreviatura" class="form-label"></label>
+            <input asp-for="Abreviatura" type="text" class="form-control" placeholder="Abreviatura del tipo de documento" />
+            <span asp-validation-for="Abreviatura" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PaisId" class="form-label">Estado del modulo</label>
+            @Html.DropDownListFor(c => c.PaisId, Model.ListaPaises, new { @class = "form-control" })
+            <span asp-validation-for="PaisId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="EstadoId" class="form-label">Estado del modulo</label>
+            @Html.DropDownListFor(c => c.EstadoId, Model.ListaEstados, new { @class = "form-control" })
+            <span asp-validation-for="EstadoId" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

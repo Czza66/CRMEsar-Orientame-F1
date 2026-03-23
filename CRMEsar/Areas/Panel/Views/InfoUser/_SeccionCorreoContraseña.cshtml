@@ -1,0 +1,64 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.InfoUser.infoUserVM
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<!-- Columna correo contraseña -->
+<div class="card shadow-none" style="border:none">
+    <div class="card-body">
+        @if (TempData["ConfirmarCorreo"] != null)
+        {
+            <div class="alert alert-danger text-danger text-center">
+                @TempData["ConfirmarCorreo"]
+            </div>
+        }
+
+        @if (Model.usuario.EmailConfirmed == false)
+        {
+            <div class="card shadow-none" style="border:none">
+                <div class="card-body">
+                    <form method="post" asp-action="ConfirmarCorreo">
+                        <div class="row mb-3">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Correo electronico" aria-describedby="button-addon2" asp-for="usuario.Email" disabled>
+                                <button class="btn btn-outline-secondary" type="submit" style="background:#1B75BB ; color:white; border:none" id="button-addon2"><i class="fas fa-paper-plane" style="color: #ffffff;"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+        <hr />
+        <form id="formCambiarDatos" asp-action="ActualizarCorreoContrasena" method="post">
+            <div class="row">
+                <!-- Columna izquierda -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Correo electrónico</label>
+                        <input id="Email" asp-for="usuario.Email" name="Email" class="form-control" type="email" required />
+                    </div>
+                </div>
+
+                <!-- Columna derecha -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="NuevaContrasena" class="form-label">Nueva contraseña</label>
+                        <input id="NuevaContrasena" name="NuevaContrasena" class="form-control" type="password" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ConfirmarContrasena" class="form-label">Confirmar contraseña</label>
+                        <input id="ConfirmarContrasena" name="ConfirmarContrasena" class="form-control" type="password" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-primary w-100" style="background:#1B75BB; color:white; border:none" onclick="validarYConfirmar()">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+        }

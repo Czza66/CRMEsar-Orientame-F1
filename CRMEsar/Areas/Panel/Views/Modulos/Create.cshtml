@@ -1,0 +1,42 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Modulos.ModulosAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Crear Modulo";
+}
+<br />
+<h3 class="text-center">Crear un nuevo modulo</h3>
+
+<form method="POST" asp-action="Create">
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="icono" class="form-label"></label>
+            <input asp-for="icono" type="text" class="form-control" placeholder="icono del modulo <i>Icono</i>" />
+            <span asp-validation-for="icono" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del modulo" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="DescripcionCorta" class="form-label"></label>
+            <input asp-for="DescripcionCorta" type="text" class="form-control" placeholder="Descripcion corta del modulo" />
+            <span asp-validation-for="DescripcionCorta" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="orden" class="form-label"></label>
+            <input asp-for="orden" type="number" class="form-control" placeholder="Orden del modulo 1,2... 10" />
+            <span asp-validation-for="orden" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

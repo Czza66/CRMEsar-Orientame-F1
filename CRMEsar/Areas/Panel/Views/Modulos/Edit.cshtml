@@ -1,0 +1,56 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Modulos.ModulosAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Editar modulo";
+}
+<br />
+<h3 class="text-center">Editar un modulo</h3>
+
+<form method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="moduloId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="icono" class="form-label"></label>
+            <input asp-for="icono" type="text" class="form-control" placeholder="icono del modulo" />
+            <span asp-validation-for="icono" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del estado" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="DescripcionCorta" class="form-label"></label>
+            <input asp-for="DescripcionCorta" type="text" class="form-control" placeholder="Descripcion del modulo" />
+            <span asp-validation-for="DescripcionCorta" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="orden" class="form-label"></label>
+            <input asp-for="orden" type="text" class="form-control" placeholder="Orden del modulo" />
+            <span asp-validation-for="orden" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="EstadoId" class="form-label">Estado del modulo</label>
+            @Html.DropDownListFor(c => c.EstadoId, Model.ListaEstados, new { @class = "form-control" })
+            <span asp-validation-for="EstadoId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="visible" class="form-label">¿Modulo visible?</label>
+            <select asp-for="visible" class="form-select">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="visible" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

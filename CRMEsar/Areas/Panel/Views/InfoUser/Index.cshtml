@@ -1,0 +1,141 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.InfoUser.infoUserVM
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+<style>
+        .list-group-item {
+        border: none; 
+        border-bottom: 1px solid #e0e0e0; /* solo línea inferior */
+        border-radius: 0;
+        }
+
+        .list-group-item.active {
+            background-color: #C63D96 !important;
+            border-color: transparent;
+            color: white;
+        }
+
+        .list-group-item:hover {
+            background-color: #ffe8f7;
+        }
+</style>
+
+<div class="container-fluid mt-4">
+    <div class="row g-4">
+        <!-- Columna menú -->
+        <div class="col-md-2">
+            <h3 class="mt-4 text-primary" style="font-weight:bold">Gestiona tu perfil</h3><br /><hr />
+            <div class="list-group" id="menu-tabs">
+                <a href="#" class="list-group-item list-group-item-action active" data-section="personal"><i class="fas fa-user"></i>&nbsp;&nbsp;Información Personal</a>
+                <a href="#" class="list-group-item list-group-item-action" data-section="correo"><i class="fas fa-key"></i>&nbsp;&nbsp;Correo y Contraseña</a>
+                <a href="#" class="list-group-item list-group-item-action" data-section="notificaciones"><i class="fas fa-bell"></i>&nbsp;&nbsp;Mis Notificaciones</a>
+                <a href="#" class="list-group-item list-group-item-action" data-section="acciones"><i class="fa fa-database"></i>&nbsp;&nbsp;Mis Acciones</a>
+            </div>
+        </div>
+
+        <!-- Columna formulario de perfil -->
+        <div class="col-md-10">
+            <div id="seccion-personal">
+                @Html.Partial("_SeccionPersonal")
+            </div>
+            <div id="seccion-correo" style="display:none;">
+                @Html.Partial("_SeccionCorreoContraseña")
+            </div>
+            <div id="seccion-notificaciones" style="display:none;">
+                @Html.Partial("_SeccionNotificaciones")
+            </div>
+            <div id="seccion-acciones" style="display:none;">
+                @Html.Partial("_SeccionLogs")
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('#menu-tabs a').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Quitar clase activa a todos los enlaces
+            document.querySelectorAll('#menu-tabs a').forEach(a => a.classList.remove('active'));
+            // Agregar clase activa al clickeado
+            this.classList.add('active');
+            // Ocultar todas las secciones
+            document.querySelectorAll('[id^="seccion-"]').forEach(div => div.style.display = 'none');
+            // Mostrar solo la seleccionada
+            const id = 'seccion-' + this.getAttribute('data-section');
+            document.getElementById(id).style.display = 'block';
+        });
+    });
+</script>
+@section Scripts {
+    <script>
+        const input = document.getElementById("imagenInput");
+        const form = document.getElementById("formImagen");
+
+        if (input) {
+            input.addEventListener("change", function () {
+                if (this.files && this.files[0]) {
+                    Swal.fire({
+                        title: '¿Actualizar imagen de perfil?',
+                        text: "¿Deseas cambiar tu foto de perfil?",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, actualizar',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonColor: '#C63D96',
+                        cancelButtonColor: '#EE3A4F'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        } else {
+                            input.value = '';
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+    <script>
+        function validarYConfirmar() {
+            const pass = document.getElementById("NuevaContrasena").value;
+            const confirm = document.getElementById("ConfirmarContrasena").value;
+
+            const esLarga = pass.length >= 12;
+
+            if (pass !== confirm) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Las contraseñas no coinciden",
+                    text: "Ambas contraseñas deben ser iguales."
+                });
+                return;
+            }
+
+            if (!esLarga) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Contraseña inválida",
+                    text: "La contraseña debe tener al menos 12 caracteres."
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡Se actualizarán tu correo y contraseña!",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#1B75BB",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, actualizar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("formCambiarDatos").submit();
+                }
+            });
+        }
+    </script>
+
+}

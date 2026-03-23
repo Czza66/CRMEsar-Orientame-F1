@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CRMEsar.Models.ViewModels.CrudEntidades.TipoNotificaciones.TipoNotificacionCrearEditarVM
+
+@{
+    ViewData["Title"] = "Editar tipo de notificacion";
+}
+<br />
+<h3 class="text-center">Crear un nuevo tipo de notificacion</h3>
+
+<form method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="tipoNotificacionId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="nombre" class="form-label"></label>
+            <input asp-for="nombre" type="text" class="form-control" placeholder="Nombre del tipo de notificacion" />
+            <span asp-validation-for="nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="colorHexadecimal" class="form-label"></label>
+            <input asp-for="colorHexadecimal" type="text" class="form-control" placeholder="Color hexadecimal #0000" />
+            <span asp-validation-for="colorHexadecimal" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="icono" class="form-label"></label>
+            <input asp-for="icono" type="text" class="form-control" placeholder="<icono></icono>" />
+            <span asp-validation-for="icono" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

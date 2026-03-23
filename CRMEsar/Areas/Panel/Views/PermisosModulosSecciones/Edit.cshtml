@@ -1,0 +1,57 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.PermisosModulosSecciones.PermisosModulosSeccionesCrearEditarVM
+
+@{
+    ViewData["Title"] = "Editar permiso";
+}
+<br />
+<h3 class="text-center">Editar un permiso</h3>
+
+<form method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="permisoId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="RolId" class="form-label">Rol para el permiso</label>
+            @Html.DropDownListFor(c => c.RolId, Model.ListaRoles, new { @class = "form-control" })
+            <span asp-validation-for="RolId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Temporal" class="form-label">¿Permiso temporal?</label>
+            <select asp-for="Temporal" class="form-select">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="Temporal" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FechaInicio" class="form-label"></label>
+            <input asp-for="FechaInicio" type="datetime" class="form-control" placeholder="Fecha de inicio del permiso" />
+            <span asp-validation-for="FechaInicio" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="FechaFin" class="form-label"></label>
+            <input asp-for="FechaFin" type="datetime" class="form-control" placeholder="Fecha de finalizacion del permiso" />
+            <span asp-validation-for="FechaFin" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ModuloId" class="form-label">Modulo</label>
+            @Html.DropDownListFor(c => c.ModuloId, Model.ListaModulos, new { @class = "form-control" })
+            <span asp-validation-for="ModuloId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="SeccionId" class="form-label">Seccion</label>
+            @Html.DropDownListFor(c => c.SeccionId, Model.ListaSecciones, new { @class = "form-control" })
+            <span asp-validation-for="SeccionId" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -1,0 +1,123 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.AtencionesRda.AtencionesRdaIndexVM
+@{
+    ViewData["Title"] = "Atenciones RDA";
+}
+
+<div class="container-fluid px-4 mt-4">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="mb-0 text-primary">Seguimiento de Atenciones RDA</h2>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4" style="border-radius: 16px;">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                <div>
+                    <h5 class="mb-1">Filtros maestros</h5>
+                    <small class="text-muted">Aplica filtros para consultar de forma rápida y optimizada.</small>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle"></i> Limpiar
+                    </a>
+                </div>
+            </div>
+
+            <form id="frmFiltros" method="get" asp-action="Index" class="row g-3">
+
+                <!-- 1) Año de Atención -->
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Año de Atención</label>
+                    <select asp-for="Filtros.AnioAtencion"
+                            asp-items="Model.Filtros.ListaAnios"
+                            class="form-control">
+                    </select>
+                </div>
+
+                <!-- 2) Donante -->
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Donante</label>
+                    <select asp-for="Filtros.Donante"
+                            asp-items="Model.Filtros.ListaDonantes"
+                            class="form-control">
+                        <option value="">-- Todos --</option>
+                    </select>
+                </div>
+
+                <!-- 3) Tipo de Prestador -->
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Tipo de Prestadora</label>
+                    <select asp-for="Filtros.TipoPrestador"
+                            asp-items="Model.Filtros.ListaTiposPrestador"
+                            class="form-control">
+                        <option value="">-- Todos --</option>
+                    </select>
+                </div>
+
+                <!-- 4) País -->
+                <div class="col-12 col-md-3">
+                    <label class="form-label">País</label>
+                    <select asp-for="Filtros.Pais"
+                            asp-items="Model.Filtros.ListaPaises"
+                            class="form-control">
+                        <option value="">-- Todos --</option>
+                    </select>
+                </div>
+
+                <!-- 5) Grupo Etareo -->
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Grupo Etario</label>
+                    <select asp-for="Filtros.GrupoEtareo"
+                            asp-items="Model.Filtros.ListaGruposEtareos"
+                            class="form-control">
+                        <option value="">-- Todos --</option>
+                    </select>
+                </div>
+
+                <!-- 6) Tipo de Consulta -->
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Tipo de Consulta</label>
+                    <select asp-for="Filtros.TipoConsulta"
+                            asp-items="Model.Filtros.ListaTiposConsulta"
+                            class="form-control">
+                        <option value="">-- Todos --</option>
+                    </select>
+                </div>
+
+                @* Si luego usamos paginación por cursor *@
+                <input type="hidden" asp-for="Filtros.Cursor" />
+
+            </form>
+        </div>
+    </div>
+    <hr />
+    <div class="table-responsive mt-4">
+        <table id="TblContenido"
+               class="table table-striped table-bordered align-middle nowrap"
+               style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>Fecha Atención</th>
+                    <th>Donante</th>
+                    <th>País</th>
+                    <th>Prestadora</th>
+                    <th>Tipo Prestadora</th>
+                    <th>Grupo Etario</th>
+                    <th>Tipo Consulta</th>
+                    <th>Identificación Disociada</th>
+                    <th>ILVE</th>
+                    <th>Telemedicina</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+@section Scripts {
+    <script src="~/js/Maestros/dataTableServerSide.js"></script>
+    <script src="~/js/Maestros/SweetAlertEliminar.js"></script>
+}

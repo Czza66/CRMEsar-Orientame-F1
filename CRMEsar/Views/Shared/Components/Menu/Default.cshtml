@@ -1,0 +1,28 @@
+﻿@model List<CRMEsar.AccesoDatos.Services.Menu.ModuloConSeccionesVM>
+
+@foreach (var modulo in Model)
+{
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse"
+           data-target="#collapse_@modulo.NombreModulo.Replace(" ", "")"
+           aria-expanded="true" aria-controls="collapse">
+            @Html.Raw(modulo.Icono)
+            <span>@modulo.NombreModulo</span>
+        </a>
+        <div id="collapse_@modulo.NombreModulo.Replace(" ", "")" class="collapse"
+             aria-labelledby="heading" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+                @foreach (var seccion in modulo.Secciones.OrderBy(s => s.Orden))
+                {
+                    <a class="collapse-item"
+                       asp-area="@seccion.Area"
+                       asp-controller="@seccion.Controller"
+                       asp-action="@seccion.Action">
+                        @seccion.Nombre
+                    </a>
+                }
+            </div>
+        </div>
+    </li>
+}

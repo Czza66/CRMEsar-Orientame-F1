@@ -1,0 +1,63 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.ModulosSecciones.ModulosSeccionesCrearEditarVM
+
+@{
+    ViewData["Title"] = "Crear Seccion";
+}
+<br />
+<h3 class="text-center">Crear un nuevo modulo</h3>
+
+<form method="POST" asp-action="Create">
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+        <div class="mb-3">
+            <label asp-for="nombre" class="form-label"></label>
+            <input asp-for="nombre" type="text" class="form-control" placeholder="Nombre de la seccion" />
+            <span asp-validation-for="nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="descripcion" class="form-label"></label>
+            <input asp-for="descripcion" type="text" class="form-control" placeholder="Descripcion corta de la seccion" />
+            <span asp-validation-for="descripcion" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="orden" class="form-label"></label>
+            <input asp-for="orden" type="number" class="form-control" placeholder="orden de la seccion" />
+            <span asp-validation-for="orden" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="area" class="form-label"></label>
+            <input asp-for="area" type="text" class="form-control" placeholder="Area a la cual pertenece la seccion" />
+            <span asp-validation-for="area" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="controller" class="form-label"></label>
+            <input asp-for="controller" type="text" class="form-control" placeholder="controller al cual pertenece la seccion" />
+            <span asp-validation-for="controller" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="action" class="form-label"></label>
+            <input asp-for="action" type="text" class="form-control" placeholder="Accion que se ejecuta" />
+            <span asp-validation-for="action" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ModuloId" class="form-label">Modulos disponibles</label>
+            @Html.DropDownListFor(c => c.ModuloId, Model.ListaModulos, new { @class = "form-control" })
+            <span asp-validation-for="ModuloId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="SeccionPadreId" class="form-label">Seccion padre</label>
+            @Html.DropDownListFor(c => c.SeccionPadreId, Model.ListaSecciones, new { @class = "form-control" })
+            <span asp-validation-for="SeccionPadreId" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

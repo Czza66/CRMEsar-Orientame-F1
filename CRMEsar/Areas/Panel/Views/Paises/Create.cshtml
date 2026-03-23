@@ -1,0 +1,45 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Paises.PaisesAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Crear Pais";
+}
+<br />
+<h3 class="text-center">Crear un nuevo pais</h3>
+
+<form method="POST" asp-action="Create">
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del pais" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Codigo" class="form-label"></label>
+            <input asp-for="Codigo" type="text" class="form-control" placeholder="Codigo del pais COL" />
+            <span asp-validation-for="Codigo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="codigoInternacional" class="form-label"></label>
+            <input asp-for="codigoInternacional" type="text" class="form-control" placeholder="Codigo Internacional del Pais" />
+            <span asp-validation-for="codigoInternacional" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PermiteILVE" class="form-label">¿Permite IVE el Pais?</label>
+            <select asp-for="PermiteILVE" class="form-control">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="PermiteILVE" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

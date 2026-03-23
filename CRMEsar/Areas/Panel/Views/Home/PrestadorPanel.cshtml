@@ -1,0 +1,364 @@
+﻿@model CRMEsar.Models.ViewModels.Panel.PrestadorPanelVM
+@{
+    ViewData["Title"] = "DashBoard Prestadora";
+}
+
+<div class="container-fluid px-4 mt-4">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="mb-0 text-primary">Dashboard</h2>
+    </div>
+    <div class="row">
+        <!-- Seguimientos de Orientacion -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Seguimientos de Orientación
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-clipboard text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seguimientos Legales -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Seguimientos Legales
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-clipboard text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seguimientos Integrales -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Seguimientos Integrales
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-clipboard text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seguimientos Tecnicos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Seguimientos Técnicos
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-clipboard text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Nivel de servicio últimos 12 meses - RDA</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="graficoTendencia12" width="1038" height="320" style="display: block; width: 1038px; height: 320px;" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-3">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Tipos de servicios en los últimos 12 meses - RDA</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-wrap">
+                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="graficoTiposServicio" width="1038" height="320" style="display: block; width: 1038px; height: 320px;" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-11">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Métodos anticonceptivos implantados en los últimos 12 meses - RDA</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-wrap">
+                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="graficoAnticonceptivos" width="1038" height="320" style="display: block; width: 1038px; height: 320px;" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .chart-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 320px; /* ajusta a gusto */
+    }
+
+    #graficoTiposServicio {
+        max-width: 100%;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+          const url = '@Url.Action("AtencionesUltimos12Meses", "Home", new { area = "Panel" })';
+          console.log("Chart URL:", url);
+
+          fetch(url)
+            .then(async r => {
+              console.log("Status:", r.status);
+              const txt = await r.text();
+              console.log("Response raw:", txt);
+
+              if (!r.ok) throw new Error("HTTP " + r.status);
+
+              return JSON.parse(txt);
+            })
+            .then(res => {
+              console.log("Parsed:", res);
+
+              const canvas = document.getElementById("graficoTendencia12");
+              if (!canvas) { console.warn("No canvas"); return; }
+
+              if (window.myAreaChartInstance) {
+                window.myAreaChartInstance.destroy();
+              }
+
+              window.myAreaChartInstance = new Chart(canvas, {
+                type: 'line',
+                data: {
+                  labels: res.labels || [],
+                  datasets: [{
+                    label: "Atenciones (últimos 12 meses)",
+                    data: res.values || [],
+                    lineTension: 0.3,
+                    pointRadius: 3,
+                    pointHoverRadius: 4,
+                    borderColor: "#4e73df",
+                    backgroundColor: "rgba(78, 115, 223, 0.1)",
+                    fill: true
+                  }]
+                },
+                options: {
+                  maintainAspectRatio: false,
+                  legend: { display: true },
+                  scales: {
+                    yAxes: [{
+                      ticks: { beginAtZero: true, precision: 0 }
+                    }]
+                  }
+                }
+              });
+            })
+            .catch(err => console.error("Chart fetch error:", err));
+        });
+    </script>
+
+    <script>
+        function wrapLabel(label, maxLen = 18) {
+          if (!label) return "";
+          const words = label.split(" ");
+          const lines = [];
+          let line = "";
+
+          for (const w of words) {
+            const test = (line ? line + " " : "") + w;
+            if (test.length > maxLen) {
+              if (line) lines.push(line);
+              line = w;
+            } else {
+              line = test;
+            }
+          }
+          if (line) lines.push(line);
+          return lines; // multiline
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+          const url = '@Url.Action("TiposServicioBarChart", "Home", new { area = "Panel" })';
+
+          fetch(url, { credentials: "include" })
+            .then(async r => {
+              const txt = await r.text();
+              if (!r.ok) throw new Error("HTTP " + r.status);
+              return JSON.parse(txt);
+            })
+            .then(res => {
+
+              const canvas = document.getElementById("graficoTiposServicio");
+              if (!canvas) return;
+
+              if (window.tiposServicioChartInstance) {
+                window.tiposServicioChartInstance.destroy();
+              }
+
+              const labelsRaw = res.labels || [];
+              const labels = labelsRaw.map(l => wrapLabel(l, 18));
+              const values = res.values || [];
+
+              const palette = [
+                "rgba(78,115,223,0.25)",
+                "rgba(28,200,138,0.25)",
+                "rgba(246,194,62,0.25)",
+                "rgba(231,74,59,0.25)",
+                "rgba(54,185,204,0.25)",
+                "rgba(133,135,150,0.25)"
+              ];
+              const borderPalette = [
+                "rgba(78,115,223,1)",
+                "rgba(28,200,138,1)",
+                "rgba(246,194,62,1)",
+                "rgba(231,74,59,1)",
+                "rgba(54,185,204,1)",
+                "rgba(133,135,150,1)"
+              ];
+
+              const bgColors = values.map((_, i) => palette[i % palette.length]);
+              const brColors = values.map((_, i) => borderPalette[i % borderPalette.length]);
+
+              window.tiposServicioChartInstance = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                  labels: labels,
+                  datasets: [{
+                    label: "Atenciones por tipo de servicio",
+                    data: values,
+                    backgroundColor: bgColors,
+                    borderColor: brColors,
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  legend: { display: true, position: "top" },
+                  layout: { padding: { left: 10, right: 10, top: 5, bottom: 5 } },
+                  scales: {
+                    yAxes: [{
+                      ticks: { beginAtZero: true, precision: 0 }
+                    }],
+                    xAxes: [{
+                      ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0,
+                        fontSize: 10
+                      },
+                      gridLines: { display: false },
+                      barPercentage: 0.7,
+                      categoryPercentage: 0.8
+                    }]
+                  },
+                  tooltips: {
+                    callbacks: {
+                      title: function (items) {
+                        const idx = items[0].index;
+                        return labelsRaw[idx] || "";
+                      }
+                    }
+                  }
+                }
+              });
+            })
+            .catch(err => console.error("BarChart fetch error:", err));
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+          const url = '@Url.Action("AnticonceptivosAgrupadoUltimos12Meses", "Home", new { area = "Panel" })';
+
+          fetch(url, { credentials: "include" })
+            .then(async r => {
+              const txt = await r.text();
+              if (!r.ok) throw new Error("HTTP " + r.status);
+              return JSON.parse(txt);
+            })
+            .then(res => {
+
+              const canvas = document.getElementById("graficoAnticonceptivos");
+              if (!canvas) return;
+
+              if (window.anticonceptivosChartInstance) {
+                window.anticonceptivosChartInstance.destroy();
+              }
+
+              window.anticonceptivosChartInstance = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                  labels: res.labels || [],
+                  datasets: res.datasets || []
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  legend: { display: true, position: "top" },
+                  scales: {
+                    xAxes: [{ stacked: false, gridLines: { display: false } }],
+                    yAxes: [{ stacked: false, ticks: { beginAtZero: true, precision: 0 } }]
+                  },
+                  tooltips: { mode: 'index', intersect: false }
+                }
+              });
+            })
+            .catch(err => console.error("Anticonceptivos chart error:", err));
+        });
+    </script>
+}

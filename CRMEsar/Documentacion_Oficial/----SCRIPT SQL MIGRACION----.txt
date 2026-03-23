@@ -1,0 +1,262 @@
+----SCRIPT SQL----
+
+---MIGRACION ENTIDADES
+INSERT INTO CRMPrestadoras.dbo.Entidad
+(
+    EntidadId,
+    Nombre,
+    NormalizedName
+)
+SELECT
+    Id,
+    Nombre,
+    NormalizedName
+FROM CRM_POA.dbo.Entidades;
+
+SELECT * FROM [dbo].[Entidad]
+
+
+---MIGRACION ESTADOS
+INSERT INTO CRMPrestadoras.dbo.Estado
+(
+    EstadoId,
+    Nombre,
+    NormalizedName,
+	Descripcion,
+	FechaCreacion,
+	Activo,
+	EntidadId,
+	IdAntiguo
+)
+SELECT
+    Id,
+    Descripcion,
+    UPPER(Descripcion),
+	'Creado por migracion',
+	GETDATE(),
+	1,
+	Entidad,
+	IdAntiguo
+FROM CRM_POA.dbo.Estados;
+
+SELECT * FROM Estado
+
+
+---Migracion de Paises
+INSERT INTO CRMPrestadoras.dbo.Paises
+(
+    PaisId,
+    Nombre,
+    NormalizedName,
+	codigoInternacional,
+	FechaCreacion,
+	Codigo,
+	EstadoId,
+	IdAntiguo,
+	PermiteILVE
+)
+SELECT
+    Id,
+    Pais,
+    UPPER(Pais),
+	0,
+	GETDATE(),
+	Codigo,
+	EstadoId,
+	IdAntiguo,
+	PermiteILVE
+FROM CRM_POA.dbo.Paises;
+
+SELECT * FROM Paises
+
+---Migracion de TiposDocumentos
+INSERT INTO CRMPrestadoras.dbo.TipoDocumentos
+(
+    TiposDocumentosId,
+	IdAntiguo,
+	TipoDocumento,
+	Abreviatura,
+	PaisId,
+	EstadoId
+)
+SELECT
+Id,
+IdAntiguo,
+TipoDocumento,
+Abreviatura,
+PaisId,
+EstadoId
+FROM CRM_POA.dbo.TiposDocumentos;
+
+SELECT * FROM TipoDocumentos
+
+--- Migración AspNetUser
+Use CRMPrestadoras
+INSERT INTO CRMPrestadoras.dbo.AspNetUsers
+(
+Id,
+Nombre1,
+Nombre2,
+Apellido1,
+Apellido2,
+NombreCompleto,
+NumeroDocumento,
+FechaRegistro,
+FechaModificacion,
+IdAntiguo,
+fotoUser,
+EstadoId,
+UserName,
+NormalizedUserName,
+Email,
+NormalizedEmail,
+EmailConfirmed,
+PasswordHash,
+SecurityStamp,
+ConcurrencyStamp,
+PhoneNumber,
+PhoneNumberConfirmed,
+TwoFactorEnabled,
+LockoutEnd,
+LockoutEnabled,
+AccessFailedCount,
+PaisId,
+Ciudad,
+Sexo,
+TipoUsuario,
+CargoId,
+TiposDocumentosId
+)
+SELECT
+Id,
+[Nombre 1],
+[Nombre 2],
+[Apellido 1],
+[Apellido 2],
+NombreCompleto,
+NumeroDocumento,
+GETDATE(),
+GETDATE(),
+IdAntiguo,
+NULL,
+EstadoId,
+Null,
+Null,
+Null,
+Null,
+0,
+Null,
+Null,
+Null,
+Null,
+0,
+0,
+Null,
+1,
+0,
+PaisId,
+Ciudad,
+Sexo,
+TipoUsuario,
+CargoId,
+TipoDocumentoId
+FROM CRM_POA.dbo.AspNetUsers;
+
+
+--- PRESTADORES
+INSERT INTO CRMPrestadoras.dbo.Prestadores
+(
+    PrestadorId,
+    IdAntiguo,
+    Profesion,
+    Codigo,
+    RecomendadoPor,
+    Telefono,
+    Celular,
+    Orientador,
+    PermiteILVE,
+    TipoServicio,
+    TipoPrestador,
+    EstadoId,
+    UserID
+)
+SELECT
+    PrestadorID,
+    IdAntiguo,
+    Profesion,
+    Codigo,
+    RecomendadoPor,
+    Telefono,
+    Celular,
+    Orientador,
+    ISNULL(PermiteILVE, 0),
+    TipoServicio,
+    TipoPrestador,
+    EstadoId,
+    UserID
+FROM CRM_POA.dbo.Prestadores;
+
+INSERT INTO CRMPrestadoras.dbo.AtencionesRDA
+(
+    AtencionID,
+    IdAntiguo,
+    CodigoPrestador,
+    tipoPrestador,
+    NombrePrestador,
+    profesion,
+    Pais,
+    Departamento,
+    Ciudad,
+    Donante,
+    Proyecto,
+    FechaCarga,
+    FechaAtencion,
+    IdentidadDisociada,
+    Edad,
+    GrupoEtareo,
+    TipoConsulta,
+    MetodoAnticonceptivo,
+    FechaAnticonceptivo,
+    MacLargaDuracion,
+    MacModerno,
+    MedioRemision,
+    MetodoAnticonceptivoMac,
+    FechaAnticonceptivoMac,
+    Utero,
+    Weeks,
+    ILVE,
+    Telemedicina,
+    PrestadorID
+)
+SELECT
+    AtencionID,
+    IdAntiguo,
+    CodigoPrestador,
+    tipoPrestador,
+    NombrePrestador,
+    profesion,
+    Pais,
+    Departamento,
+    Ciudad,
+    Donante,
+    Proyecto,
+    FechaCarga,
+    FechaAtencion,
+    IdentificacionDisociada,
+    Edad,
+    GrupoEtareo,
+    TipoConsulta,
+    MetodoAnticonceptivo,
+    FechaAnticonceptivo,
+    MacLargaDuracion,
+    MacModerno,
+    MedioRemision,
+    MetodoAnticonceptivoMac,
+    FechaAnticonceptivoMac,
+    Utero,
+    Weeks,
+    ILVE,
+    Telemedicina,
+    PrestadorID
+FROM CRM_POA.dbo.Atenciones_RDA;
+

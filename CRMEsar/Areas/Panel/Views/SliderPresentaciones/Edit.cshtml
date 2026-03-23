@@ -1,0 +1,88 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.SliderPresentaciones.SliderPresentacionesCrearEditarVM
+@{
+    ViewData["Title"] = "Editar Slider";
+}
+
+<h3 class="text-center">Editar slider</h3>
+<form method="POST" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="sliderId" />
+    <input type="hidden" asp-for="ImagenRuta" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+        <div class="form-group row mb-4">
+            <!-- Columna derecha: vista previa -->
+            <div class="col-md-12 text-center">
+                <div class="border rounded p-2"
+                     style="height: 250px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    <img id="vistaPrevia"
+                         src="@Url.Content(Model.ImagenRuta)"
+                         alt="Vista previa"
+                         style="max-height: 180px; max-width: 100%; object-fit: contain; border-radius: 8px;" />
+                    <div id="infoImagen" class="mt-2 text-secondary small"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Titulo" class="form-label"></label>
+            <input asp-for="Titulo" type="text" class="form-control" placeholder="Titulo del Slider" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label"></label>
+            <textarea asp-for="Descripcion" type="text" class="form-control" id="Descripcion"></textarea>
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TextoAlternativo" class="form-label"></label>
+            <input asp-for="TextoAlternativo" type="text" class="form-control" placeholder="Texto alternativo" />
+            <span asp-validation-for="TextoAlternativo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="UrlDestino" class="form-label"></label>
+            <input asp-for="UrlDestino" type="text" class="form-control" placeholder="Url de destino" />
+            <span asp-validation-for="UrlDestino" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Orden" class="form-label"></label>
+            <input asp-for="Orden" type="number" class="form-control" placeholder="Numero de orden" />
+            <span asp-validation-for="Orden" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Activo" class="form-label">¿Slider activo?</label>
+            <select asp-for="Activo" class="form-control">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="Activo" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <!-- TinyMCE con tu clave personal -->
+    <script src="https://cdn.tiny.cloud/1/y69idvrvyyn87zpwi4uqq2ib8tl23hhy80bvlrz0w5h89nfg/tinymce/8/tinymce.min.js"
+            referrerpolicy="origin" crossorigin="anonymous"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#Descripcion',       // Solo afecta al campo de descripción
+            height: 300,
+            menubar: false,
+            plugins: [
+                // Plugins básicos
+                'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+                'link', 'lists', 'media', 'table', 'visualblocks', 'wordcount'
+            ],
+            toolbar:
+                'undo redo | blocks | bold italic underline forecolor backcolor | ' +
+                'alignleft aligncenter alignright | bullist numlist | code removeformat',
+            branding: false, // Quita el logo TinyMCE del pie
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+    </script>
+}

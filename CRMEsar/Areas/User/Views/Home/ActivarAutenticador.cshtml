@@ -1,0 +1,62 @@
+﻿@using CRMEsar.Models.ViewModels;
+@using CRMEsar.Models.ViewModels.Login
+@model AutenticacionDosFactoresVM
+
+@{
+	ViewData["Title"] = "Activar Autenticador";
+}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="d-flex flex-column flex-lg-row shadow-lg rounded overflow-hidden w-100 align-items-stretch" style="max-width: 1140px; background: rgba(255, 255, 255, 0.95);">
+
+        <!-- Carrusel -->
+        @await Html.PartialAsync("_SliderVP", Model.Slider)
+
+        <!-- Login -->
+        <div class="col-lg-5 p-4 bg-white d-flex flex-column justify-content-center">
+            <div class="text-center mb-3">
+                <img src="~/img/login/LogoLogin.png" alt="Logo Fundación Orientame" style="max-height: 80px;" />
+            </div>
+            <p class="text-center text-muted">Para proteger tu cuenta, debes configurar el doble factor de autenticación escaneando este código QR:</p>
+
+            <form method="post">
+                <div class="text-danger" asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="Token" />
+                <div class="mb-3 text-center">
+                    <div id="codigoQR" style="border-radius: 12px; border: 2px solid #1B75BB; padding: 10px; background-color: #fff; display: inline-block;">
+                    </div>
+                </div>
+                <br />
+                <div class="mb-3">
+                    <label asp-for="code"></label>
+                    <input type="text" asp-for="code" class="form-control" placeholder="Escribe el código de tu autenticador" />
+                    <span asp-validation-for="code" class="text-danger"></span>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn bg-morado-Esar text-white">Verificar</button>
+                </div>
+                <br />
+                @if (TempData["ErrorAuth"] != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @TempData["ErrorAuth"]
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/qrcode.js"></script>
+    <script type="text/javascript">
+            new QRCode(document.getElementById("codigoQR"), {
+            text: "@Model.urlCodigoQR",
+            width: 150,
+            height: 150
+        });
+    </script>
+
+}

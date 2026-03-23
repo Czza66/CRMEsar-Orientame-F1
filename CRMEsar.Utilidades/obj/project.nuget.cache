@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "3NYmRUErTp0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\PC\\Documents\\DESARROLLOS\\CRMEsarV1\\CRMEsar.Utilidades\\CRMEsar.Utilidades.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.abstractions\\9.0.3\\microsoft.aspnetcore.dataprotection.abstractions.9.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,192 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Prestadores.PrestadorCreateVM
+
+@{
+    ViewData["Title"] = "Crear prestador";
+}
+
+<br />
+<h3 class="text-center">Crear una nueva prestadora</h3>
+
+<form method="POST" asp-action="Create">
+    <div class="container p-4">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+        <div class="row g-3">
+            <!-- BUSCADOR -->
+            <div class="col-xl-5 col-lg-4 col-md-6 col-12">
+                <div class="mb-3">
+                    <label class="form-label">
+                        Filtra la usuaria que quieres volver prestadora 
+                    </label>
+                    <input type="text"
+                           id="buscarDocumento"
+                           class="form-control"
+                           placeholder="Buscar por número de documento" />
+                </div>
+            </div>
+            <!-- SELECT USUARIOS -->
+            <div class="col-xl-7 col-lg-4 col-md-6 col-12">
+                <div class="mb-3">
+                    <label class="form-label">
+                        Selecciona
+                    </label>
+                    <select asp-for="UserIdSeleccionado"
+                            id="usuarioSelect"
+                            class="form-control">
+                        <option value="">Seleccione una usuaria</option>
+
+                        @if (Model.UsuariosDisponibles != null && Model.UsuariosDisponibles.Any())
+                        {
+                            foreach (var u in Model.UsuariosDisponibles)
+                            {
+                                <option value="@u.UserId"
+                                        data-nombre="@u.NombreCompleto"
+                                        data-email="@u.Email"
+                                        data-ciudad="@u.Ciudad"
+                                        data-pais="@u.Pais"
+                                        data-documento="@u.NumeroDocumento">
+                                    @u.NumeroDocumento - @u.NombreCompleto
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row g-3">
+            <!-- DATOS USUARIO (READONLY) -->
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Nombre completo</label>
+                <input id="nombreCompleto"
+                       class="form-control mb-1"
+                       placeholder="-"
+                       readonly />
+                
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Correo</label>
+                <input id="correo"
+                       class="form-control mb-1"
+                       placeholder="-"
+                       readonly />
+                
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Ciudad</label>
+                <input id="ciudad"
+                       class="form-control mb-1"
+                       placeholder="-"
+                       readonly />
+                
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <label class="form-label">Pais</label>
+                <input id="pais"
+                       class="form-control mb-1"
+                       placeholder="-"
+                       readonly />
+                
+            </div>
+        </div>
+         <hr />
+        <div class="mb-3">
+            <label asp-for="TipoPrestador" class="form-label">Tipo de prestadora</label>
+            <select asp-for="TipoPrestador"
+                    asp-items="Model.ListaTipoPrestador"
+                    class="form-control">
+            </select>
+            <span asp-validation-for="TipoPrestador" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TipoServicio" class="form-label"></label>
+            <input asp-for="TipoServicio" type="text" class="form-control" placeholder="Tipo de servicio" />
+            <span asp-validation-for="Profesion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Profesion" class="form-label"></label>
+            <input asp-for="Profesion" type="text" class="form-control" placeholder="Profesión de la prestadora" />
+            <span asp-validation-for="Profesion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="RecomendadoPor" class="form-label"></label>
+            <input asp-for="RecomendadoPor" type="text" class="form-control" placeholder="¿Fue recomendada por alguien?" />
+            <span asp-validation-for="RecomendadoPor" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Telefono" class="form-label"></label>
+            <input asp-for="Telefono" type="text" class="form-control" placeholder="Teléfono" />
+            <span asp-validation-for="Telefono" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Celular" class="form-label"></label>
+            <input asp-for="Celular" type="text" class="form-control" placeholder="Celular" />
+            <span asp-validation-for="Celular" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Orientador" class="form-label">¿Es Orientadora?</label>
+            <select asp-for="Orientador" class="form-control">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="Orientador" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PermiteILVE" class="form-label">¿Permite IVE?</label>
+            <select asp-for="PermiteILVE" class="form-control">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="PermiteILVE" class="text-danger"></span>
+        </div>
+
+        <!-- CAMPOS DEL PRESTADOR -->
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // FILTRAR POR DOCUMENTO
+        document.getElementById("buscarDocumento")
+            .addEventListener("keyup", function () {
+
+            let filtro = this.value.toLowerCase();
+            let opciones = document.querySelectorAll("#usuarioSelect option");
+
+            opciones.forEach(o => {
+                if (!o.dataset.documento) return;
+
+                let doc = o.dataset.documento.toLowerCase();
+                o.style.display = doc.includes(filtro) ? "block" : "none";
+            });
+        });
+
+        // CARGAR DATOS DEL USUARIO SELECCIONADO
+        document.getElementById("usuarioSelect")
+            .addEventListener("change", function () {
+
+            if (this.selectedIndex <= 0) {
+                document.getElementById("nombreCompleto").value = "";
+                document.getElementById("correo").value = "";
+                document.getElementById("ciudad").value = "";
+                document.getElementById("pais").value = "";
+                return;
+            }
+
+            let opt = this.options[this.selectedIndex];
+
+            document.getElementById("nombreCompleto").value = opt.dataset.nombre || "";
+            document.getElementById("correo").value = opt.dataset.email || "";
+            document.getElementById("ciudad").value = opt.dataset.ciudad || "";
+            document.getElementById("pais").value = opt.dataset.pais || "";
+        });
+    </script>
+}

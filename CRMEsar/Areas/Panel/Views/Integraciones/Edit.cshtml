@@ -1,0 +1,104 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Integraciones.IntegracionesCrearEditarVM
+
+@{
+    ViewData["Title"] = "Editar integracion";
+}
+<br />
+<h3 class="text-center">Editar integracion</h3>
+
+<form id="formIntegracion" method="POST" asp-action="Edit">
+    <input type="hidden" asp-for="integracionId" />
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+        <div class="mb-3">
+            <label asp-for="tipoIntegracion" class="form-label">Seleccione el tipo de integracion</label>
+            <select class="form-control" asp-for="tipoIntegracion" >
+                <option selected disabled>--- Null ---</option>
+                <option value="POWERAUTOMATE">Power Automate (Microsoft)</option>
+            </select>
+            <span asp-validation-for="tipoIntegracion" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="nombre" class="form-label">Seleccione el nombre de la actividad</label>
+            <select class="form-control" asp-for="nombre">
+                <option selected disabled>--- Null ---</option>
+                <option value="CONFIRMARCORREO">Verificar correo electronico</option>
+            </select>
+            <span asp-validation-for="tipoIntegracion" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EndPointURL" class="form-label"></label>
+            <input asp-for="EndPointURL" type="text" class="form-control" placeholder="Enpoint URL de acceso al API" />
+            <span asp-validation-for="EndPointURL" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="metodoHTTP" class="form-label"></label>
+            <input asp-for="metodoHTTP" type="text" class="form-control" placeholder="metodo HTTP - Get ,Post" />
+            <span asp-validation-for="metodoHTTP" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="JsonSchema" class="form-label">Esquema JSON</label>
+            <!-- Editor visual -->
+            <div id="jsonEditor" style="height: 300px; width: 100%; border: 1px solid #ccc;"></div>
+            <!-- Campo real del modelo -->
+            <textarea asp-for="JsonSchema" id="schemaJson" name="JsonSchema" class="d-none form-control"></textarea>
+            <span asp-validation-for="JsonSchema" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="activa" class="form-label">¿Integracion activa?</label>
+            <select asp-for="activa" class="form-control">
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+            <span asp-validation-for="activa" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <partial name="_VistaEditarVolver" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"></script>
+
+    <script>
+        const editor = ace.edit("jsonEditor");
+        editor.setTheme("ace/theme/github");
+        editor.session.setMode("ace/mode/json");
+
+        // Insertar el contenido inicial del modelo (si existe)
+        editor.setValue(`@Html.Raw(Model.JsonSchema ?? "")`, -1);
+
+        const form = document.getElementById("formIntegracion");
+        const hiddenField = document.getElementById("schemaJson");
+
+        form.addEventListener("submit", function (e) {
+            const jsonContent = editor.getValue().trim();
+            hiddenField.value = jsonContent;
+
+            if (!jsonContent) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Campo requerido',
+                    text: 'El esquema JSON no puede estar vacío.',
+                });
+                return;
+            }
+
+            try {
+                JSON.parse(jsonContent);
+            } catch (err) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'JSON inválido',
+                    text: 'Corrige los errores de sintaxis en el JSON.',
+                });
+            }
+        });
+    </script>
+}

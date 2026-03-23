@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole<Guid>>
+
+@{
+    ViewData["Title"] = "Crear Rol";
+}
+<br />
+<br />
+<h3 class="text-center text-primary"> Crear un nuevo rol</h3>
+
+<form method="POST" asp-action="Crear">
+    <div class="row px-2 offset-1 border">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="col-10 offset-1 mt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Nombre del rol</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del rol: admin, user..." />
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-8">
+                    <partial name="_VistaCrearVolver" />
+                </div>
+            </div>
+            <br />
+            <br />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />};
+    <script>
+        document.getElementById('nombre')?.focus();
+    </script>
+}

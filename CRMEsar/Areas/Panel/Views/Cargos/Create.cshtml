@@ -1,0 +1,32 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Cargos.CargosAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Crear cargo";
+}
+<br />
+<h3 class="text-center">Crear un nuevo cargo</h3>
+
+<form method="POST" asp-action="Create">
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Cargo" class="form-label"></label>
+            <input asp-for="Cargo" type="text" class="form-control" placeholder="Nombre del Cargo" />
+            <span asp-validation-for="Cargo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Abreviatura" class="form-label"></label>
+            <input asp-for="Abreviatura" type="text" class="form-control" placeholder="Abreviatura del cargo" />
+            <span asp-validation-for="Abreviatura" class="text-danger"></span>
+        </div>
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+                <partial name="_ValidationScriptsPartial" />
+    }
+}

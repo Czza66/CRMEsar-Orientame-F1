@@ -1,0 +1,123 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.object-fit-cover {
+    object-fit: cover;
+}
+
+/* Ajuste visual y de altura solo para escritorio */
+@media (min-width: 992px) {
+    .carrusel-login {
+        max-width: 66.6666%;
+        height: auto;
+    }
+
+        .carrusel-login .carousel-inner,
+        .carrusel-login .carousel-item,
+        .carrusel-login img {
+            height: 100%;
+        }
+
+    .d-flex.align-items-stretch {
+        height: auto;
+    }
+}
+
+/* Para móvil, altura mínima */
+@media (max-width: 991.98px) {
+    .carrusel-login {
+        min-height: 250px;
+    }
+}
+html {
+    height: 100%;
+}
+
+/*COLORES EMPRESARIALES*/
+
+:root {
+    --color-azul-Esar: 1B75BB;
+    --color-rosado-Esar: #C63D96;
+    --color-morado-Esar: #1B2F72;
+    --color-naranja-Esar: #F7931D;
+    --color-amarillo-Esar: #FFF100;
+    --color-verde-Esar: #237D34;
+    --color-ralmon-Esar: #EE3A4F;
+}
+/* ------------------------------------------------Colores de fondo------------------------------------------------------------------------ */
+
+.bg-azul-Esar {
+    background-color: var(--color-azul-Esar) !important;
+}
+
+.bg-rosado-Esar {
+    background-color: var(--color-rosado-Esar) !important;
+}
+
+.bg-morado-Esar {
+    background-color: var(--color-morado-Esar) !important;
+}
+
+.bg-naranja-Esar {
+    background-color: var(--color-naranja-Esar) !important;
+}
+
+.bg-amarillo-Esar {
+    background-color: var(--color-amarillo-Esar) !important;
+}
+
+.bg-verde-Esar {
+    background-color: var(--color-verde-Esar) !important;
+}
+
+.bg-salmon-Esar {
+    background-color: var(--color-salmon-Esar) !important;
+}
+
+/*----------------------------------------------------Colores de texto----------------------------------------------- */
+.text-azul-Esar {
+    color: var(--color-azul-Esar) !important;
+}
+
+.text-rosado-Esar {
+    color: var(--color-rosado-Esar) !important;
+}
+
+.text-morado-Esar {
+    color: var(--color-morado-Esar) !important;
+}
+
+.text-naranja-Esar {
+    color: var(--color-naranja-Esar) !important;
+}
+
+.text-amarillo-Esar {
+    color: var(--color-amarillo-Esar) !important;
+}
+
+.text-verde-Esar {
+    color: var(--color-verde-Esar) !important;
+}
+
+.text-salmon-Esar {
+    color: var(--color-salmon-Esar) !important;
+}

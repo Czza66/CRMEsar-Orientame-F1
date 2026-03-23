@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["CRM ESAR"] - CRMEsar</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/_LayoutLogin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CRMEsar.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+    </header>
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-muted pt-5">
+        <div class="container">
+            <p class="mb-0">© @DateTime.Now.Year Fundación Esar.</p>
+        </div>
+    </footer>
+    <div id="globalLoading"
+         style="
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(255,255,255,0.7);
+        z-index:9999;
+        align-items:center;
+        justify-content:center;
+     ">
+        <div class="text-center">
+            <div class="spinner-grow text-primary m-1" role="status"></div>
+            <div class="spinner-grow text-info m-1" role="status"></div>
+            <div class="spinner-grow text-dark m-1" role="status"></div>
+            <div class="mt-2 fw-bold text-dark">Cargando...</div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Mostrar loading al enviar formularios
+        document.addEventListener("submit", function () {
+            mostrarLoading();
+        });
+
+        // Mostrar loading al hacer navegación
+        document.addEventListener("click", function (e) {
+            const target = e.target.closest("a");
+            if (
+                target &&
+                target.getAttribute("href") &&
+                !target.getAttribute("href").startsWith("#") &&
+                !target.hasAttribute("data-toggle") // evita modales
+            ) {
+                mostrarLoading();
+            }
+        });
+
+        // Ocultar cuando la página terminó de cargar
+        window.addEventListener("load", function () {
+            ocultarLoading();
+        });
+
+        function mostrarLoading() {
+            const overlay = document.getElementById("globalLoading");
+            if (overlay) {
+                overlay.style.display = "flex";
+            }
+        }
+
+        function ocultarLoading() {
+            const overlay = document.getElementById("globalLoading");
+            if (overlay) {
+                overlay.style.display = "none";
+            }
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

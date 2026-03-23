@@ -1,0 +1,41 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.Estados.EstadosAgregarEditarVM
+
+@{
+    ViewData["Title"] = "Crear Estado";
+}
+<br />
+<h3 class="text-center text-primary">Crear un nuevo estado</h3>
+
+<form method="POST" asp-action="Create">
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del estado" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label"></label>
+            <input asp-for="Descripcion" type="text" class="form-control" placeholder="Descripción para el estado" />
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EntidadId" class="form-label">Entidad</label>
+            @Html.DropDownListFor(c => c.EntidadId, Model.ListaEntidades,
+                     "-Por favor seleccione una Entidad-", new { @class = "form-control" })
+            <span asp-validation-for="EntidadId" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

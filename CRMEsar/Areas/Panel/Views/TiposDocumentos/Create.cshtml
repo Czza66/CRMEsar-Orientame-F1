@@ -1,0 +1,38 @@
+﻿@model CRMEsar.Models.ViewModels.CrudEntidades.TiposDocumentos.TipoDocumentCrearEditarVM
+
+@{
+    ViewData["Title"] = "Crear un tipo de documento";
+}
+<br />
+<h3 class="text-center">Crear un tipo de documento</h3>
+
+<form method="POST" asp-action="Create">
+    <div class="container p-4 ">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="TipoDocumento" class="form-label"></label>
+            <input asp-for="TipoDocumento" type="text" class="form-control" placeholder="Nombre del Tipo de Documento" />
+            <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Abreviatura" class="form-label"></label>
+            <input asp-for="Abreviatura" type="text" class="form-control" placeholder="Abreviatura del Tipo de Documento" />
+            <span asp-validation-for="Abreviatura" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ListaPaises" class="form-label">Paises activos</label>
+            @Html.DropDownListFor(c => c.ListaPaises, Model.ListaPaises, new { @class = "form-control" })
+            <span asp-validation-for="ListaPaises" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <partial name="_VistaCrearVolver" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

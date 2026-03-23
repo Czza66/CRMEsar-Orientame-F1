@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Error interno del servidor";
+    Layout = "_LayoutError";
+}
+
+<div class="container vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto text-center">
+
+            <!-- Código de error -->
+            <h1 class="display-1 fw-bold text-danger">500</h1>
+
+            <!-- Mensaje principal -->
+            <h3 class="fw-semibold mb-3">
+                Algo salió mal
+            </h3>
+
+            <!-- Descripción -->
+            <p class="text-muted mb-4">
+                Ocurrió un error inesperado en el sistema.
+                Nuestro equipo ya fue notificado y está trabajando para solucionarlo.
+                Por favor, intenta nuevamente más tarde.
+            </p>
+
+            <!-- Acciones -->
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+
+                <button onclick="location.reload()"
+                        class="btn btn-outline-secondary px-4">
+                    <i class="bi bi-arrow-clockwise me-1"></i>
+                    Reintentar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

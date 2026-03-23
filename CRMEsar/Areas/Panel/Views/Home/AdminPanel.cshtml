@@ -1,0 +1,252 @@
+﻿@model CRMEsar.Models.ViewModels.Panel.AdminPanelVM
+@{
+    ViewData["Title"] = "DashBoard Admin";
+}
+
+<div class="container-fluid px-4 mt-4">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="mb-0 text-primary">Dashboard</h2>
+    </div>
+
+    <div class="row">
+
+        <!-- Usuarios activos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Usuarias activas
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsuariosActivos</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inicios de sesión hoy -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Inicios de sesión hoy
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.IniciosSesionHoy</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-sign-in-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuarios con 2FA -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Usuarias con 2FA
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsuariosCon2FA</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-shield-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prestadores activos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Prestadoras activas
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.PrestadoresActivos</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-md fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Usuarias activas último año</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="myAreaChart" width="1038" height="320" style="display: block; width: 1038px; height: 320px;" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Migración de usuarias</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="myPieChart" width="486" height="245" style="display: block; width: 486px; height: 245px;" class="chartjs-render-monitor"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Usuarias Activas
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-danger"></i> Usuarias Inactivas
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const url = '@Url.Action("LoginsUltimos12Meses", "Home", new { area = "Panel" })';
+            console.log("Chart URL:", url);
+
+            fetch(url)
+                .then(async r => {
+                    console.log("Status:", r.status);
+                    const txt = await r.text();
+                    console.log("Response raw:", txt);
+
+                    if (!r.ok) throw new Error("HTTP " + r.status);
+
+                    return JSON.parse(txt);
+                })
+                .then(res => {
+                    console.log("Parsed:", res);
+
+                    const canvas = document.getElementById("myAreaChart");
+                    if (!canvas) { console.warn("No canvas"); return; }
+
+                    if (window.myAreaChartInstance) {
+                        window.myAreaChartInstance.destroy();
+                    }
+
+                    window.myAreaChartInstance = new Chart(canvas, {
+                        type: 'line',
+                        data: {
+                            labels: res.labels || [],
+                            datasets: [{
+                                label: "Inicios de Sesión",
+                                data: res.values || [],
+                                lineTension: 0.3,
+                                pointRadius: 3,
+                                pointHoverRadius: 4,
+                                borderColor: "#4e73df",
+                                backgroundColor: "rgba(78, 115, 223, 0.1)",
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            legend: { display: true },
+                            scales: {
+                                yAxes: [{
+                                    ticks: { beginAtZero: true, precision: 0 }
+                                }]
+                            }
+                        }
+                    });
+                })
+                .catch(err => console.error("Chart fetch error:", err));
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            fetch('@Url.Action("UsuariosActivosConVsSinPassword", "Home", new { area = "Panel" })')
+                .then(r => r.json())
+                .then(res => {
+
+                    var ctx = document.getElementById("myPieChart");
+                    if (!ctx) return;
+
+                    // destruir si ya existe
+                    if (window.myPieChartInstance) {
+                        window.myPieChartInstance.destroy();
+                    }
+
+                    window.myPieChartInstance = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: res.labels,
+                            datasets: [{
+                                data: res.values,
+
+                                // 👇 AQUÍ VAN LOS COLORES 👇
+                                backgroundColor: [
+                                    '#4e73df', // Azul SB Admin (Con contraseña)
+                                    '#e74a3b'  // Rojo SB Admin (Sin contraseña)
+                                ],
+                                hoverBackgroundColor: [
+                                    '#2e59d9',
+                                    '#c0392b'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            cutoutPercentage: 70,
+                            legend: { display: false }
+                        }
+                    });
+
+                    // Leyenda personalizada
+                    var total = (res.values[0] || 0) + (res.values[1] || 0);
+                    document.getElementById("lblConPwd").innerText =
+                        `Con contraseña: ${res.values[0]} (${pct(res.values[0], total)}%)`;
+                    document.getElementById("lblSinPwd").innerText =
+                        `Sin contraseña: ${res.values[1]} (${pct(res.values[1], total)}%)`;
+                });
+
+            function pct(v, total) {
+                if (!total) return 0;
+                return Math.round((v * 100) / total);
+            }
+        });
+    </script>
+
+
+}

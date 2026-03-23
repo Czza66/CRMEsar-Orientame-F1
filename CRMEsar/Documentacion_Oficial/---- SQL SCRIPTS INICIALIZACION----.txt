@@ -1,0 +1,171 @@
+---- SQL SCRIPTS INICIALES---- 
+
+---1 ROLES
+INSERT INTO AspNetRoles
+(
+    Id,
+    Name,
+    NormalizedName
+)VALUES(
+NEWID(),
+'Admin',
+'ADMIN'
+)
+
+
+--- 2 ESTADO USUARIO INICIAL SUPERADMIN
+INSERT INTO CRMPrestadoras.dbo.Estado
+(
+    EstadoId,
+    Nombre,
+    NormalizedName,
+	Descripcion,
+	FechaCreacion,
+	Activo,
+	EntidadId,
+	IdAntiguo
+)VALUES(
+NEWID(),
+'Activo',
+'ACTIVO',
+'Usuario activo del sistema',
+GETDATE(),
+1,
+'E7FAAA62-3982-41F7-B876-AEBC8B1E6595',
+0
+)
+
+---3 AGREGAR NOTIFICACION INICIAL
+INSERT INTO CRMPrestadoras.dbo.TipoNotificaciones
+(
+    tipoNotificacionId,
+    Nombre,
+    NormalizedName,
+	ColorHexadecimal,
+	icono
+)VALUES(
+NEWID(),
+'Succes',
+'SUCCES',
+'#4AFF56',
+'<i class="fas fa-check-square"></i>'
+)
+
+---4 VINCULAR SUPER ADMIN AL ROL
+INSERT INTO CRMPrestadoras.dbo.AspNetUserRoles
+(
+    UserId,
+    RoleId
+)VALUES(
+'CD58B7AD-92B4-4EE9-AFBE-08DE4C75FB0E',
+'3FA9CBF0-212A-4BF3-9087-E4A9090423ED'
+)
+
+
+--5 crear estados para modulos admin
+INSERT INTO CRMPrestadoras.dbo.Estado
+(
+    EstadoId,
+    Nombre,
+    NormalizedName,
+	Descripcion,
+	FechaCreacion,
+	Activo,
+	EntidadId,
+	IdAntiguo
+)VALUES(
+NEWID(),
+'Activo',
+'ACTIVO',
+'Modulo Activo del sistema',
+GETDATE(),
+1,
+'0F97210B-577C-4E57-943E-B0612C3795D1',
+0
+)
+
+---6 Crear modulo inicial de administración
+INSERT INTO CRMPrestadoras.dbo.Modulos
+(
+    moduloId,
+    icono,
+	nombre,
+	descripcionCorta,
+	orden,
+	visible,
+	EstadoId
+)VALUES(
+NEWID(),
+'<i class="fas fa-cog"></i>',
+'Maestros',
+'Modulos de administracion del sistema',
+1,
+1,
+'B417CB5C-76D7-4B6E-B5FC-8854BA5496F9'
+)
+
+
+---7 crear estado de las secciones
+INSERT INTO CRMPrestadoras.dbo.Estado
+(
+    EstadoId,
+    Nombre,
+    NormalizedName,
+	Descripcion,
+	FechaCreacion,
+	Activo,
+	EntidadId,
+	IdAntiguo
+)VALUES(
+NEWID(),
+'Activo',
+'ACTIVO',
+'Seccion Activa del sistema',
+GETDATE(),
+1,
+'C8A966B3-12CB-426C-B42A-C19138492F48',
+0
+)
+
+---8 Crear primera sección
+INSERT INTO CRMPrestadoras.dbo.ModulosSecciones
+(
+    seccionId,
+    nombre,
+	descripcion,
+	orden,
+	visible,
+	area,
+	controller,
+	action,
+	EstadoId,
+	ModuloId
+)VALUES(
+NEWID(),
+'Permisos Modulos',
+'Esta seccion permite agregar permisos a los diferentes modulos',
+1,
+1,
+'Panel',
+'PermisosModulosSecciones',
+'Index',
+'B866D230-9494-47E8-AEF0-7EA6E75A45D4',
+'6D10D7B5-B033-4FD3-B46A-10CFE61E17B4'
+)
+
+
+---9 Crear Permisos de administración sobre el modulo de permisos al rol ADMIN
+INSERT INTO CRMPrestadoras.dbo.PermisosModulosSecciones
+(
+    PermisoId,
+    Temporal,
+	RolId,
+	ModuloId,
+	SeccionId
+)VALUES(
+NEWID(),
+0,
+'3FA9CBF0-212A-4BF3-9087-E4A9090423ED',
+'6D10D7B5-B033-4FD3-B46A-10CFE61E17B4',
+'BA480E65-68FE-4417-8E9B-B434DB66CF6F'
+)

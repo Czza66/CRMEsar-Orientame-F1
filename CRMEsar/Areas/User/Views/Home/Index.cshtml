@@ -1,0 +1,79 @@
+﻿@using CRMEsar.Models
+@using CRMEsar.Models.ViewModels.Login
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> signInManager
+@model AccesoVM
+
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="d-flex flex-column flex-lg-row shadow-lg rounded overflow-hidden w-100 align-items-stretch" style="max-width: 1140px; background: rgba(255, 255, 255, 0.95);">
+
+        <!-- Carrusel -->
+            @await Html.PartialAsync("_SliderVP", Model.Slider)
+
+            <!-- Login -->
+            <div class="col-lg-5 p-4 bg-white d-flex flex-column justify-content-center">
+                <div class="text-center mb-3">
+                    <img src="~/img/login/LogoLogin.png" alt="Logo Fundación Esar" style="max-height: 80px;" />
+                </div>
+                <p class="text-center text-muted">Bienvenida, ingresa tus credenciales</p>
+
+                <form method="post" asp-controller="Home" asp-action="Acceso">
+                    <div class="text-danger" asp-validation-summary="All"></div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Usuaria</label>
+                        <input asp-for="Email" type="text" class="form-control" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Contraseña</label>
+                        <input asp-for="Password" type="password" class="form-control" required autocomplete="off" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                <div class="mb-3 d-none">
+                        <div class="custom-check">
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                    <button type="submit" class="btn bg-morado-Esar text-white">Autentícate &nbsp; <i class="bi bi-file-lock2-fill"></i></button>
+                    </div>
+                    <br />
+                @if (TempData["ErrorLogin"] != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @TempData["ErrorLogin"]
+                    </div>
+                }
+                @if (TempData["CerrarSesion"] != null)
+                {
+                    <div class="alert alert-success text-center">
+                        @TempData["CerrarSesion"]
+                    </div>
+                }
+                @if (TempData["VerificacionCorrecta"] != null)
+                {
+                    <div class="alert alert-success text-center">
+                        @TempData["VerificacionCorrecta"]
+                    </div>
+                }
+                </form>
+
+                <p class="text-center">
+                <a asp-controller="Home" asp-action="CuentaAntigua" class="text-decoration-none text-muted">¿Tienes una cuenta antigua?</a><br />
+                <a asp-controller="Home" asp-action="ResetPassword" class="text-decoration-none text-muted">¿Olvidaste tu contraseña?</a>
+                </p>
+            </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

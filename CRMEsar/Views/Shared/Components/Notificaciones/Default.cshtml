@@ -1,0 +1,47 @@
+﻿@model CRMEsar.AccesoDatos.Services.Notificaciones.NotificacioneVM
+
+<li class="nav-item dropdown no-arrow mx-1">
+    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-bell fa-fw"></i>
+        <!-- Counter - Alerts -->
+        <span class="badge badge-danger badge-counter">
+            @(Model.TotalNotificaciones > 10 ? "10+" : Model.TotalNotificaciones.ToString())
+        </span>
+    </a>
+
+    <!-- Dropdown - Alerts -->
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+         aria-labelledby="alertsDropdown">
+        <h6 class="dropdown-header" style="background:#1B75BB">
+            Centro de notificaciones
+        </h6>
+
+        @if (!Model.notificaciones.Any())
+        {
+            <span class="dropdown-item text-muted">No tienes notificaciones nuevas.</span>
+        }
+        else
+        {
+            @foreach (var noti in Model.notificaciones)
+            {
+                <a class="dropdown-item d-flex align-items-center" asp-area="Panel" asp-controller="Notificaciones" asp-action="Leer" asp-route-id="@noti.NotificacionId">
+                    <div class="mr-3">
+                        <div class="icon-circle" style="background:@noti.TipoNotificaciones.ColorHexadecimal">
+                            @Html.Raw(noti.TipoNotificaciones.icono)
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500" style="font-size:9px">@noti.FechaCreacion.ToString("dd MMM yyyy, HH:mm")</div>
+                        <span class="font-weight-bold" style="font-size:12px">@noti.Titulo</span><br />
+                        <small>@noti.Mensaje</small>
+                    </div>
+                </a>
+            }
+
+            <a class="dropdown-item text-center small text-gray-500" href="#">Ver todas las alertas</a>
+        }
+    </div>
+</li>
+
+<div class="topbar-divider d-none d-sm-block"></div>

@@ -1,0 +1,99 @@
+﻿@using CRMEsar.Models.ViewModels;
+@using CRMEsar.Models.ViewModels.Login
+@model ValidarCuentaAntiguaVM
+
+@{
+    ViewData["Title"] = "Validar usuario antiguo";
+}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="d-flex flex-column flex-lg-row shadow-lg rounded overflow-hidden w-100 align-items-stretch" style="max-width: 1140px; background: rgba(255, 255, 255, 0.95);">
+
+        <!-- Carrusel -->
+        @await Html.PartialAsync("_SliderVP", Model.Slider)
+
+        <!-- Login -->
+        <div class="col-lg-5 p-4 bg-white d-flex flex-column justify-content-center">
+            <div class="text-center mb-3">
+                <img src="~/img/login/LogoLogin.png" alt="Logo Fundación Orientame" style="max-height: 80px;" />
+            </div>
+            <p class="text-center text-muted">Valida tu cuenta antigua</p>
+            <div class="d-flex justify-content-center mb-4">
+                <div class="btn-group" role="group">
+                    <button type="button"
+                            id="btnCuenta"
+                            class="btn btn-outline-dark  active">
+                        Cuenta
+                    </button>
+                    <button type="button"
+                            id="btnPrestador"
+                            class="btn btn-outline-dark ">
+                        Prestadora
+                    </button>
+                </div>
+            </div>
+            <form asp-area="User" asp-controller="Home" asp-action="CuentaAntigua" method="post">
+                <div class="text-danger" asp-validation-summary="All"></div>
+                <!-- Cuenta -->
+                <div id="seccionCuenta">
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Número de documento
+                        </label>
+                        <input asp-for="NumeroDocumento"
+                               class="form-control"
+                               placeholder="Ingresa tu número de documento" />
+                    </div>
+                </div>
+                <!-- Prestador -->
+                <div id="seccionPrestador" class="d-none">
+                    <div class="mb-1">
+                        <label class="form-label">
+                            Código de prestadora
+                        </label>
+                        <input asp-for="CodPrestador"
+                               class="form-control"
+                               placeholder="Ingresa tu código de prestadora" />
+                    </div>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn bg-morado-Esar w-100 mt-3" style="color:white">
+                        Validar
+                    </button>
+                </div>
+                
+                <br />
+                <p class="text-center">
+                    <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted">Volver al inicio</a><br />
+
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+            const btnCuenta = document.getElementById('btnCuenta');
+            const btnPrestador = document.getElementById('btnPrestador');
+            const seccionCuenta = document.getElementById('seccionCuenta');
+            const seccionPrestador = document.getElementById('seccionPrestador');
+
+            btnCuenta.addEventListener('click', () => {
+                btnCuenta.classList.add('active');
+                btnPrestador.classList.remove('active');
+
+                seccionCuenta.classList.remove('d-none');
+                seccionPrestador.classList.add('d-none');
+            });
+
+            btnPrestador.addEventListener('click', () => {
+                btnPrestador.classList.add('active');
+                btnCuenta.classList.remove('active');
+
+                seccionPrestador.classList.remove('d-none');
+                seccionCuenta.classList.add('d-none');
+            });
+        </script>
+    }
+}

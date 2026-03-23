@@ -1,0 +1,41 @@
+﻿@using CRMEsar.Models.ViewModels;
+@using CRMEsar.Models.ViewModels.Login
+@model VerificarAutenticadorVM
+
+@{
+	ViewData["Title"] = "Verificar Autenticador";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="d-flex flex-column flex-lg-row shadow-lg rounded overflow-hidden w-100 align-items-stretch" style="max-width: 1140px; background: rgba(255, 255, 255, 0.95);">
+
+        <!-- Carrusel -->
+        @await Html.PartialAsync("_SliderVP", Model.Slider)
+
+        <!-- Login -->
+        <div class="col-lg-5 p-4 bg-white d-flex flex-column justify-content-center">
+            <div class="text-center mb-3">
+                <img src="~/img/login/LogoLogin.png" alt="Logo Fundación Orientame" style="max-height: 80px;" />
+            </div>
+            <p class="text-center text-muted">Bienvenida, para continuar por favor ingresa el código numérico que te brinda la aplicación de autenticación con Microsoft</p>
+
+            <form asp-asp-controller="Home" asp-action="VerificarCodigoAutenticador" method="post">
+                <div class="text-danger" asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="RecordarDatos" />
+                <div class="mb-3">
+                    <label asp-for="code"></label>
+                    <input type="text" asp-for="code" class="form-control" placeholder="" />
+                    <span asp-validation-for="code" class="text-danger"></span>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn bg-morado-Esar text-white">Ingresar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

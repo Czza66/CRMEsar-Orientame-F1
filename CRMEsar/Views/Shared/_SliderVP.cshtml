@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CRMEsar.Models.ViewModels.CrudEntidades.SliderPresentaciones.SliderPresentacionesVM>
+
+<div class="carrusel-login p-0 w-100 w-lg-66">
+    <div id="carruselLogin" class="carousel slide h-100" data-bs-ride="carousel">
+        <div class="carousel-inner h-100">
+            @{
+                int cont = 0;
+            }
+
+            @foreach (var slider in Model)
+            {
+                if (slider.Activo)
+                {
+                    var itemActivo = cont++ == 0 ? "active" : "";
+                    <div class="carousel-item @itemActivo h-100">
+                        <img src="@Url.Content(slider.ImagenRuta)"
+                             class="d-block w-100 h-100 object-fit-cover"
+                             alt="Imagen del slider" />
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>@slider.Titulo</h5>
+                            <p>@Html.Raw(slider.Descripcion)</p>
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (!Model.Any(s => s.Activo))
+            {
+                <div class="carousel-item active h-100">
+                    <img src="~/img/sliders/SinImagenes.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Imagen de prueba" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 style="color:black">Sin Presentaciones</h5>
+                        <p style="color:black">Consulta con el administrador</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carruselLogin" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carruselLogin" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+</div>
